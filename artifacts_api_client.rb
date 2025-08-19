@@ -6,6 +6,7 @@ require_relative 'artifacts_api_client/connection'
 require_relative 'artifacts_api_client/client'
 require_relative 'artifacts_api_client/api/tasks'
 require_relative 'artifacts_api_client/api/my_account'
+require_relative 'artifacts_api_client/api/my_character'
 
 module ArtifactsApiClient
   class << self

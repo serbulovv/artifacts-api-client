@@ -9,15 +9,18 @@ module ArtifactsApiClient
   class Client
     class << self
       def get(path, headers: {}, params: {})
-        connection.get(path, params, default_headers.merge(headers)).body
+        connection.get(path, params, default_headers.merge(headers))
+        # TODO: Add error parsing
       end
 
-      def post(path, body: nil, headers: {})
-        connection.post(path, body&.to_json, default_headers.merge(headers)).body
+      def post(path, headers: {}, params: {})
+        connection.post(path, params.to_json, default_headers.merge(headers)).body
+        # TODO: Add error parsing
       end
 
       def delete(path, headers: {})
-        connection.delete(path, nil, default_headers.merge(headers)).body
+        connection.delete(path, nil, default_headers.merge(headers))
+        # TODO: Add error parsing
       end
 
       private
