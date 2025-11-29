@@ -2,9 +2,6 @@
 
 require 'json'
 
-require_relative 'connection'
-require_relative 'errors_handler'
-
 module ArtifactsApiClient
   class Client
     class << self

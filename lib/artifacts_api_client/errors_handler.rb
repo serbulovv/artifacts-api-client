@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module ArtifactsApiClient
@@ -13,14 +15,14 @@ module ArtifactsApiClient
     end
 
     def self.handle_error(response)
-      body_parsed = JSON.parse(response.body) rescue response.body
-      code = body_parsed.is_a?(Hash) ? body_parsed['code'] : nil
+      code = response.body.is_a?(Hash) ? response.body["error"]["code"] : nil
 
       case response.status
         # General
       when 422 then raise InvalidPayloadError.new("Invalid Payload", status: 422, body: response.body, error_code: code)
       when 429 then raise TooManyRequestsError.new("Too Many Requests", status: 429, body: response.body, error_code: code)
       when 404 then raise NotFoundError.new("Not Found", status: 404, body: response.body, error_code: code)
+      when 403 then raise NotAuthenticated.new("Not authenticated", status: 403, body: response.body, error_code: code)
       when 500 then raise FatalError.new("Fatal Error", status: 500, body: response.body, error_code: code)
 
       # Email token errors
@@ -109,6 +111,7 @@ module ArtifactsApiClient
     class InvalidPayloadError < ErrorsHandler; end
     class TooManyRequestsError < ErrorsHandler; end
     class NotFoundError < ErrorsHandler; end
+    class NotAuthenticated < ErrorsHandler; end
     class FatalError < ErrorsHandler; end
     class InvalidEmailResetTokenError < ErrorsHandler; end
     class ExpiredEmailResetTokenError < ErrorsHandler; end

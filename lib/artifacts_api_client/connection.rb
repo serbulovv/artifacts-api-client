@@ -1,4 +1,4 @@
-require 'faraday'
+# frozen_string_literal: true
 
 module ArtifactsApiClient
   class Connection

@@ -13,7 +13,7 @@ module ArtifactsApiClient
         # GET /tasks/list/code
         # @param [String] task_code
         # @param [Hash] params
-        def get_task(task_code: task_code, params: {})
+        def get_task(task_code:, params: {})
 
           Client.get("/tasks/list/#{task_code}", params: params)
         end
@@ -27,7 +27,7 @@ module ArtifactsApiClient
         # GET /tasks/rewards/{code}
         # @param [String] task_code
         # @param [Hash] params
-        def get_tasks_reward(task_code: task_code, params: {})
+        def get_tasks_reward(task_code:, params: {})
           Client.get("/tasks/rewards/#{task_code}", params: params)
         end
       end
